@@ -150,21 +150,7 @@ def run_gemini3_research():
     # 动态获取昨天的日期
     yesterday = (datetime.now(TZ_CN) - timedelta(days=1)).strftime('%Y-%m-%d')
 
-    
-    # 判断是否为周末 (5=Saturday, 6=Sunday)
-    is_weekend = datetime.now(TZ_CN).weekday() >= 5
-    mode_instruction = ""
-    if is_weekend:
-        mode_instruction = """
-        【周末特别模式】
-        今天是周末，大厂官方新闻可能较少。请将搜索重心转移到：
-        1. **深度技术帖**：Reddit (r/LocalLlama, r/MachineLearning) 或 Hacker News 上的高热度技术讨论。
-        2. **GitHub 书签**：本周内新发布但被忽视的“宝藏”开源项目。
-        3. **实战教程**：Twitter/X 上大佬分享的最新模型微调 (Fine-tuning) 或 RAG 最佳实践。
-        不要受限于“突发新闻”，寻找那些“值得开发者花周末时间研究”的内容。
-        """
-    else:
-        mode_instruction = "重点关注：OpenAI, Google, Anthropic 等巨头的最新发布和 ArXiv 上的突破性论文。"
+    mode_instruction = "重点关注：OpenAI, Google, Anthropic,英伟达,Meta 等巨头的最新发布和新闻。以及 ArXiv 上的突破性论文。"
 
     prompt = f"""
     # 角色定义

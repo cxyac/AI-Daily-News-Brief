@@ -21,20 +21,20 @@ theme:
     - search.highlight        # 搜索高亮
     
   palette: 
-    # 深色模式（默认）- AI 科技感更强
-    - scheme: slate
-      primary: deep purple    # 深紫色 - AI 感
-      accent: purple          # 强调色
-      toggle:
-        icon: material/brightness-4
-        name: 切换至浅色模式
-    # 浅色模式
+    # 浅色模式（默认）
     - scheme: default
       primary: deep purple
       accent: purple
       toggle:
         icon: material/brightness-7
         name: 切换至深色模式
+    # 深色模式
+    - scheme: slate
+      primary: deep purple    # 深紫色 - AI 感
+      accent: purple          # 强调色
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
 
   # 自定义字体
   font:
