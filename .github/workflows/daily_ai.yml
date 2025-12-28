@@ -46,8 +46,14 @@ jobs:
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'runner@users.noreply.github.com'
           git add docs/archives/*.md docs/index.md
-          # 如果有更动才提交，防止报错
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-add daily report (Deep Research)" && git push)
+          # 如果有更动才提交
+          if ! git diff --quiet || ! git diff --staged --quiet; then
+            git commit -m "Auto-add daily report (Deep Research)"
+            # 拉取远程更新并 rebase（处理可能的冲突）
+            git pull --rebase origin main || true
+            # 推送到远程
+            git push
+          fi
           
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
