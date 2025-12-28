@@ -166,19 +166,31 @@ def run_gemini3_research():
     else:
         mode_instruction = "重点关注：OpenAI, Google, Anthropic 等巨头的最新发布和 ArXiv 上的突破性论文。"
 
+    # 获取当前年份用于验证
+    current_year = datetime.now(TZ_CN).year
+    
     prompt = f"""
+    # ⚠️⚠️⚠️ 时间验证警告 ⚠️⚠️⚠️
+    
+    当前年份：**{current_year} 年**（不是 2024 年！）
+    今天完整日期：**{current_date}**（北京时间）
+    
+    **严禁使用 2024 年或更早的信息！** 
+    所有日期必须是 {current_year} 年的，格式：{current_year}-MM-DD
+    
     # 角色定义
     你是一位站在 AI 行业最前沿的【首席情报官】，擅长从海量碎片信息(包括新闻、论文、社区讨论)中提取最有价值的洞察。
     
     # ⚠️ 关键约束：时效性是第一优先级
-    今天是 {current_date}（北京时间）。
-    你的搜索范围：**{yesterday} 00:00 至 {current_date} 23:59**（最近 24 小时）
+    今天是 {current_date}（{current_year} 年，北京时间）。
+    你的搜索范围：**{yesterday} 至 {current_date}**（最近 24 小时）
     
     **严格要求**：
-    1. 只报道发生在上述时间范围内的信息
-    2. 每个情报必须附带明确的时间戳或发布日期
-    3. 如果某条信息无法确认是最近 24h 发生的，直接丢弃
-    4. 优先级：真实性 > 新鲜度 > 完整性
+    1. 只报道发生在 {current_year} 年的信息
+    2. 每个情报的时间必须标注为：{current_year}-MM-DD 格式
+    3. 如果搜索结果显示是 2024 年的，立即丢弃
+    4. 无法确认年份的信息，直接丢弃
+    5. 优先级：真实性 > 新鲜度 > 完整性
     
     {mode_instruction}
     
@@ -265,7 +277,7 @@ def run_gemini3_research():
     
     ### 1. [具体事件标题 - 必须包含关键实体名称]
     **来源**: [媒体名称 + 原文链接]  
-    **时间**: {yesterday} 或 {current_date}（必须精确到日期）
+    **时间**: {current_year}-MM-DD（必须包含年份！格式示例：{current_date}）
     
     - **深度拆解**: 
       用 80-150 字说明：这是什么？为什么发生？核心技术/商业逻辑是什么？
@@ -320,7 +332,30 @@ def run_gemini3_research():
             thinking_config=types.ThinkingConfig(include_thoughts=True)
         )
     )
-    return response.text
+    
+    # 日期验证与清理
+    generated_text = response.text
+    current_year = datetime.now(TZ_CN).year
+    
+    # 检查是否包含错误年份
+    if "2024" in generated_text or "2023" in generated_text:
+        print(f"⚠️  警告：生成的内容包含旧年份数据，正在尝试修正...")
+        
+        # 替换错误的年份（保守处理）
+        import re
+        # 替换日期格式中的 2024 为当前年份
+        generated_text = re.sub(r'\b2024-(\d{2})-(\d{2})\b', f'{current_year}-\\1-\\2', generated_text)
+        generated_text = re.sub(r'\b2023-(\d{2})-(\d{2})\b', f'{current_year}-\\1-\\2', generated_text)
+        
+        # 替换文本中的年份提及
+        generated_text = re.sub(r'\b2024\s*年', f'{current_year} 年', generated_text)
+        generated_text = re.sub(r'\b2023\s*年', f'{current_year} 年', generated_text)
+        
+        print(f"✅ 已将内容中的年份修正为 {current_year} 年")
+    else:
+        print(f"✅ 日期验证通过：未发现旧年份数据")
+    
+    return generated_text
 
 def parse_gemini_response(raw_text):
     """从原始文本中提取元数据和正文内容"""
