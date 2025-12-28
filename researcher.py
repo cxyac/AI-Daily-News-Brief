@@ -379,10 +379,11 @@ def run_gemini3_research_fallback():
     """
 
     response = client.models.generate_content(
-        model='gemini-2.0-flash-exp',
+        model='gemini-3-pro-preview',  # 使用与原版相同的模型
         contents=prompt,
         config=types.GenerateContentConfig(
             tools=[types.Tool(google_search=types.GoogleSearch())],
+            thinking_config=types.ThinkingConfig(include_thoughts=True)  # 启用思考模式
         )
     )
     return response.text
