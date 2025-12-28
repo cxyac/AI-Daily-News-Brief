@@ -1,33 +1,51 @@
-/* Global Typography & Layout */
+/* ==========================================
+   AI Daily Insight - Custom Stylesheet
+   优化的深紫色主题 + 增强视觉效果
+   ========================================== */
+
+/* === 1. 全局变量与字体 === */
 :root {
     --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
     --md-code-font: "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace;
-    --card-bg-color: #f8f9fa;
-    --insight-border-color: #007bff;
-    /* Primary Blue from palette */
+
+    /* 自定义颜色变量 */
+    --ai-purple: #7E57C2;
+    --ai-purple-light: #9575CD;
+    --ai-purple-dark: #5E35B1;
+    --card-bg-light: #f8f9fa;
+    --card-shadow: 0 4px 12px rgba(126, 87, 194, 0.1);
 }
 
-/* Magazine Title Style for H1 */
+/* === 2. 标题样式优化 === */
 .md-typeset h1 {
     font-weight: 800;
     letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
-    color: var(--md-default-fg-color);
-    text-align: left;
-    border-bottom: 3px solid var(--md-primary-fg-color);
-    display: inline-block;
-    padding-bottom: 10px;
+    background: linear-gradient(135deg, var(--md-primary-fg-color), var(--ai-purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    padding-bottom: 15px;
 }
 
-/* Subheadings */
+.md-typeset h1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--md-primary-fg-color), transparent);
+    border-radius: 2px;
+}
+
 .md-typeset h2 {
     font-weight: 700;
     margin-top: 2.5rem;
-    color: var(--md-default-fg-color);
-    border-bottom: none;
-    /* Remove default MkDocs underline */
+    margin-bottom: 1rem;
     position: relative;
-    padding-left: 1rem;
+    padding-left: 1.2rem;
 }
 
 .md-typeset h2::before {
@@ -36,25 +54,42 @@
     left: 0;
     top: 0.2em;
     bottom: 0.2em;
-    width: 4px;
-    background: var(--md-primary-fg-color);
-    border-radius: 2px;
+    width: 5px;
+    background: linear-gradient(180deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+    border-radius: 3px;
 }
 
-/* Chief Insight / Blockquote Styling */
+.md-typeset h3 {
+    font-weight: 600;
+    color: var(--md-primary-fg-color);
+    margin-top: 1.5rem;
+}
+
+/* === 3. 引用块 (Chief Insight) === */
 .md-typeset blockquote {
-    background-color: var(--md-default-bg-color--lightest);
+    background: linear-gradient(135deg,
+            rgba(126, 87, 194, 0.05) 0%,
+            rgba(126, 87, 194, 0.02) 100%);
     border-left: 4px solid var(--md-primary-fg-color);
-    border-radius: 0 8px 8px 0;
-    padding: 1.2rem;
-    margin: 1.5rem 0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    color: var(--md-default-fg-color);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: var(--card-shadow);
     font-style: normal;
-    /* Remove italic */
+    position: relative;
+    overflow: hidden;
 }
 
-.md-typeset blockquote>p:first-child {
+.md-typeset blockquote::before {
+    content: "💡";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    opacity: 0.3;
+}
+
+.md-typeset blockquote p:first-child {
     font-weight: 500;
     margin-top: 0;
 }
@@ -63,105 +98,221 @@
     color: var(--md-primary-fg-color);
 }
 
-/* Make links pop more */
+/* === 4. 链接增强 === */
 .md-typeset a {
     color: var(--md-primary-fg-color);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.2s ease;
+    position: relative;
+}
+
+.md-typeset a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: var(--md-accent-fg-color);
+    transition: width 0.3s ease;
+}
+
+.md-typeset a:hover::after {
+    width: 100%;
 }
 
 .md-typeset a:hover {
     color: var(--md-accent-fg-color);
-    text-decoration: underline;
 }
 
-/* Reference Links Section styling */
+/* === 5. 列表样式优化 === */
 .md-typeset ul li {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.6em;
+    line-height: 1.7;
 }
 
-/* Responsive Images */
+.md-typeset ul li::marker {
+    color: var(--md-primary-fg-color);
+}
+
+/* === 6. 图片优化 === */
 .md-typeset img {
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- Newsletter Subscribe Box --- */
+.md-typeset img:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* === 7. 代码块优化 === */
+.md-typeset code {
+    background-color: rgba(126, 87, 194, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.md-typeset pre {
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+/* === 8. 订阅卡片 === */
 .subscribe-card {
-    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
-    border: 1px solid #e1e4e8;
-    border-radius: 12px;
-    padding: 2rem;
+    background: linear-gradient(135deg,
+            rgba(126, 87, 194, 0.08) 0%,
+            rgba(149, 117, 205, 0.04) 100%);
+    border: 2px solid rgba(126, 87, 194, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem;
     margin: 3rem 0;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 24px rgba(126, 87, 194, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subscribe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(126, 87, 194, 0.15);
 }
 
 .subscribe-title {
     font-weight: 700;
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    color: var(--md-typeset-color);
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--md-primary-fg-color);
 }
 
 .subscribe-desc {
-    color: var(--md-typeset-color-muted);
+    color: var(--md-default-fg-color--light);
     margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-.subscribe-form {
-    display: flex;
-    gap: 0.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-    flex-wrap: wrap;
+/* Tally iframe 容器 */
+.subscribe-card iframe {
+    border-radius: 8px;
+    margin-top: 1rem;
 }
 
-.subscribe-input {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 1px solid #d0d7de;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    outline: none;
-    min-width: 200px;
+/* === 9. 内容卡片（可选使用） === */
+.content-card {
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
 }
 
-.subscribe-input:focus {
-    border-color: var(--md-primary-fg-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+.content-card:hover {
+    box-shadow: 0 8px 24px rgba(126, 87, 194, 0.15);
+    transform: translateY(-2px);
 }
 
-.subscribe-btn {
-    background-color: var(--md-primary-fg-color);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
+/* === 10. 阅读进度条 === */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+    z-index: 1000;
+    transition: width 0.1s ease;
 }
 
-.subscribe-btn:hover {
-    background-color: var(--md-primary-fg-color--dark);
-}
-
-/* Dark Mode Adjustments */
+/* === 11. 深色模式优化 === */
 [data-md-color-scheme="slate"] {
-    --card-bg-color: #1e1e1e;
-    --md-default-bg-color--lightest: #2a2a2a;
+    --card-bg-light: #1e1e1e;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
     .subscribe-card {
-        background: linear-gradient(135deg, #1e2022 0%, #25282c 100%);
-        border-color: #30363d;
+        background: linear-gradient(135deg,
+                rgba(126, 87, 194, 0.15) 0%,
+                rgba(94, 53, 177, 0.08) 100%);
+        border-color: rgba(126, 87, 194, 0.3);
     }
 
-    .subscribe-input {
-        background-color: #0d1117;
-        border-color: #30363d;
-        color: #c9d1d9;
+    code {
+        background-color: rgba(126, 87, 194, 0.15);
     }
+
+    .content-card {
+        background: #1e1e1e;
+        border-color: #30363d;
+    }
+}
+
+/* === 12. 响应式优化 === */
+@media (max-width: 768px) {
+    .md-typeset h1 {
+        font-size: 1.8rem;
+    }
+
+    .subscribe-card {
+        padding: 1.5rem;
+    }
+
+    .md-typeset blockquote {
+        padding: 1rem;
+    }
+}
+
+/* === 13. 打印样式优化 === */
+@media print {
+
+    .subscribe-card,
+    .md-header,
+    .md-footer,
+    .md-sidebar {
+        display: none !important;
+    }
+
+    .md-typeset a {
+        text-decoration: underline;
+        color: #000;
+    }
+
+    .md-typeset a::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666;
+    }
+}
+
+/* === 14. 平滑滚动 === */
+html {
+    scroll-behavior: smooth;
+}
+
+/* === 15. 选中文本样式 === */
+::selection {
+    background-color: rgba(126, 87, 194, 0.3);
+    color: var(--md-default-fg-color);
+}
+
+/* === 16. 首页特殊优化 === */
+.md-content__inner>h1:first-of-type {
+    text-align: left;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* 最新动态标签 */
+.latest-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+    color: white;
+    padding: 0.3em 0.8em;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-left: 0.5em;
+    vertical-align: middle;
 }

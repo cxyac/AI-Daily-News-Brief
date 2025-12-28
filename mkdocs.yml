@@ -1,45 +1,79 @@
 site_name: AI Daily Insight
 site_url: https://news.helloaidev.com/
+site_description: 由 Gemini 3 Pro 驱动的 AI 每日深度简报，聚合全球 AI 领域热点新闻、前沿论文与开源项目
+site_author: Clarence
 
 theme:
   name: material
   logo: assets/logo.svg
-  favicon: assets/logo.svg
-  language: zh  # 设置为中文界面
+  favicon: assets/favicon.png
+  language: zh  # 中文界面
+  
   features:
-    - navigation.indexes    # 点击目录时直接打开索引页
-    - navigation.tabs       # 顶部导航标签页
-    - navigation.top        # 回到顶部按钮
-    - content.code.copy     # 代码块复制按钮
+    - navigation.indexes      # 点击目录时直接打开索引页
+    - navigation.tabs         # 顶部导航标签页
+    - navigation.tabs.sticky  # 导航栏固定
+    - navigation.top          # 回到顶部按钮
+    - navigation.tracking     # URL 自动更新
+    - content.code.copy       # 代码块复制按钮
+    - content.code.annotate   # 代码注释
+    - search.suggest          # 搜索建议
+    - search.highlight        # 搜索高亮
+    
   palette: 
-    - scheme: default       # 浅色模式
-      primary: blue      # 主色调设为蓝色
-      accent: light blue # 强调色设为浅蓝色
-      toggle:
-        icon: material/brightness-7
-        name: 切换至深色模式
-    - scheme: slate         # 深色模式
-      primary: indigo
-      accent: indigo
+    # 深色模式（默认）- AI 科技感更强
+    - scheme: slate
+      primary: deep purple    # 深紫色 - AI 感
+      accent: purple          # 强调色
       toggle:
         icon: material/brightness-4
         name: 切换至浅色模式
+    # 浅色模式
+    - scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+
+  # 自定义字体
+  font:
+    text: Roboto
+    code: Roboto Mono
 
 nav:
-  - 主页: index.md
-  - 日报归档: archives/index.md
+  - 🏠 主页: index.md
+  - 📅 日报归档: archives/index.md
+  - 📧 订阅: 'https://tally.so/r/kd9P9J'
 
 plugins:
-  - search
+  - search:
+      lang:
+        - zh
+        - en
   - rss:
-      abstract_chars_count: 160
-      comments_config:
-        disqus: shortname
+      abstract_chars_count: 200
+      date_from_meta:
+        as_creation: date
       use_git: false
       feed_ttl: 1440
+      length: 20
 
-
-
+markdown_extensions:
+  - admonition          # 提示框
+  - pymdownx.details    # 可折叠内容
+  - pymdownx.superfences # 代码块增强
+  - pymdownx.highlight:  # 代码高亮
+      anchor_linenums: true
+  - pymdownx.inlinehilite # 行内代码高亮
+  - pymdownx.tabbed:     # 标签页
+      alternate_style: true
+  - pymdownx.emoji:      # Emoji 支持
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list           # 属性列表
+  - md_in_html          # HTML 中的 Markdown
+  - tables              # 表格
 
 extra_css:
   - stylesheets/extra.css
@@ -47,13 +81,20 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/cxyac
-    - icon: fontawesome/brands/x-twitter
-      link: https://twitter.com/你的账号
+      link: https://github.com/cxyac/AI-Daily-News-Brief
+      name: GitHub 仓库
+    - icon: fontawesome/solid/envelope
+      link: https://tally.so/r/kd9P9J
+      name: 邮件订阅
     - icon: fontawesome/solid/rss
-      link: feed_rss_created.xml
-    #- icon: fontawesome/solid/envelope
-    #  link: https://follow.it/ai-daily-news-brief?action=followPub
-  analytics:
-    provider: google
-    property: G-XXXXXXXXXX # 如果你想看访客统计，可以加上这个
+      link: /feed_rss_created.xml
+      name: RSS 订阅
+  
+  # 版权信息
+  generator: false  # 隐藏 "Made with Material for MkDocs"
+  
+  # 自定义页脚
+  copyright: |
+    Copyright &copy; 2025 <a href="https://github.com/cxyac" target="_blank">Clarence</a> | 
+    由 <a href="https://ai.google.dev/" target="_blank">Gemini 3 Pro</a> 驱动 | 
+    <a href="https://github.com/cxyac/AI-Daily-News-Brief" target="_blank">开源项目</a>
