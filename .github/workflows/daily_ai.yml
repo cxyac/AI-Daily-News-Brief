@@ -1,0 +1,51 @@
+name: Daily AI Researcher & Publisher
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write # 必须赋予写权限，否则无法提交新文件
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Run Research & Generate File
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          # GitHub Issue Publishing
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          # SMTP Email
+          EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          TEST_RECIPIENT: ${{ secrets.TEST_RECIPIENT }}
+          NOTION_SUBSCRIBERS_DB_ID: ${{ secrets.NOTION_SUBSCRIBERS_DB_ID }}
+        run: python researcher.py
+        
+      - name: Commit and Push new content
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'runner@users.noreply.github.com'
+          git add docs/archives/*.md
+          # 如果有更动才提交，防止报错
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-add daily report" && git push)
+          
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force

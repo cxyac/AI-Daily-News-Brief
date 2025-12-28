@@ -1,0 +1,167 @@
+/* Global Typography & Layout */
+:root {
+    --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    --md-code-font: "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace;
+    --card-bg-color: #f8f9fa;
+    --insight-border-color: #007bff;
+    /* Primary Blue from palette */
+}
+
+/* Magazine Title Style for H1 */
+.md-typeset h1 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--md-default-fg-color);
+    text-align: left;
+    border-bottom: 3px solid var(--md-primary-fg-color);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+/* Subheadings */
+.md-typeset h2 {
+    font-weight: 700;
+    margin-top: 2.5rem;
+    color: var(--md-default-fg-color);
+    border-bottom: none;
+    /* Remove default MkDocs underline */
+    position: relative;
+    padding-left: 1rem;
+}
+
+.md-typeset h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    bottom: 0.2em;
+    width: 4px;
+    background: var(--md-primary-fg-color);
+    border-radius: 2px;
+}
+
+/* Chief Insight / Blockquote Styling */
+.md-typeset blockquote {
+    background-color: var(--md-default-bg-color--lightest);
+    border-left: 4px solid var(--md-primary-fg-color);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    color: var(--md-default-fg-color);
+    font-style: normal;
+    /* Remove italic */
+}
+
+.md-typeset blockquote>p:first-child {
+    font-weight: 500;
+    margin-top: 0;
+}
+
+.md-typeset blockquote strong {
+    color: var(--md-primary-fg-color);
+}
+
+/* Make links pop more */
+.md-typeset a {
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.md-typeset a:hover {
+    color: var(--md-accent-fg-color);
+    text-decoration: underline;
+}
+
+/* Reference Links Section styling */
+.md-typeset ul li {
+    margin-bottom: 0.5em;
+}
+
+/* Responsive Images */
+.md-typeset img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Newsletter Subscribe Box --- */
+.subscribe-card {
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    border: 1px solid #e1e4e8;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.subscribe-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--md-typeset-color);
+}
+
+.subscribe-desc {
+    color: var(--md-typeset-color-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.subscribe-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    min-width: 200px;
+}
+
+.subscribe-input:focus {
+    border-color: var(--md-primary-fg-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.subscribe-btn {
+    background-color: var(--md-primary-fg-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.subscribe-btn:hover {
+    background-color: var(--md-primary-fg-color--dark);
+}
+
+/* Dark Mode Adjustments */
+[data-md-color-scheme="slate"] {
+    --card-bg-color: #1e1e1e;
+    --md-default-bg-color--lightest: #2a2a2a;
+
+    .subscribe-card {
+        background: linear-gradient(135deg, #1e2022 0%, #25282c 100%);
+        border-color: #30363d;
+    }
+
+    .subscribe-input {
+        background-color: #0d1117;
+        border-color: #30363d;
+        color: #c9d1d9;
+    }
+}

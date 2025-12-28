@@ -1,0 +1,6 @@
+google-genai
+notion-client>=2.0.0
+PyGithub
+mkdocs-material
+mkdocs-rss-plugin
+markdown

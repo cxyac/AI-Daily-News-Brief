@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background: Tech Blue Rounded Square -->
+  <rect x="0" y="0" width="128" height="128" rx="28" fill="#007bff"/>
+  
+  <!-- Icon: The "Digital Pulse" / Abstract AI Wave -->
+  <!-- A clean, thick white stroke representing data flow and upward trend -->
+  <path d="M24 64 L38 64 L54 32 L74 96 L90 64 L104 64" 
+        stroke="white" 
+        stroke-width="12" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+</svg>

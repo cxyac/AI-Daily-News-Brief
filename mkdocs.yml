@@ -1,0 +1,59 @@
+site_name: AI Daily Insight
+site_url: https://news.helloaidev.com/
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  language: zh  # 设置为中文界面
+  features:
+    - navigation.indexes    # 点击目录时直接打开索引页
+    - navigation.tabs       # 顶部导航标签页
+    - navigation.top        # 回到顶部按钮
+    - content.code.copy     # 代码块复制按钮
+  palette: 
+    - scheme: default       # 浅色模式
+      primary: blue      # 主色调设为蓝色
+      accent: light blue # 强调色设为浅蓝色
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+    - scheme: slate         # 深色模式
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
+
+nav:
+  - 主页: index.md
+  - 日报归档: archives/index.md
+
+plugins:
+  - search
+  - rss:
+      abstract_chars_count: 160
+      comments_config:
+        disqus: shortname
+      use_git: false
+      feed_ttl: 1440
+
+
+
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cxyac
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/你的账号
+    - icon: fontawesome/solid/rss
+      link: feed_rss_created.xml
+    #- icon: fontawesome/solid/envelope
+    #  link: https://follow.it/ai-daily-news-brief?action=followPub
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX # 如果你想看访客统计，可以加上这个
