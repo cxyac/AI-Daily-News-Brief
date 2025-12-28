@@ -1,7 +1,6 @@
 import os
 import json
 import re
-import time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import smtplib
@@ -143,174 +142,15 @@ def send_email_newsletter(metadata, markdown_content):
     except Exception as e:
         print(f"❌ 邮件发送失败: {e}")
 
-def run_deep_research():
-    """
-    使用 Gemini Deep Research Agent 进行深度研究
-    返回: 原始研究报告文本
-    """
-    print("🔬 正在启动 Deep Research Agent...")
-    print("⏳ 预计耗时 5-15 分钟，请耐心等待...")
+def run_gemini3_research():
+    """使用 Gemini 3 Pro 进行每日动态深度研究"""
+    print("🚀 正在启动 Gemini 3 Pro 深度研究引擎...")
     
     current_date = datetime.now(TZ_CN).strftime('%Y-%m-%d')
+    # 动态获取昨天的日期
     yesterday = (datetime.now(TZ_CN) - timedelta(days=1)).strftime('%Y-%m-%d')
-    
-    # 专为 Deep Research 设计的研究任务描述
-    research_task = f"""
-# AI Industry Intelligence Report - {current_date}
 
-## Research Objective
-You are a senior AI industry analyst tasked with creating a comprehensive daily intelligence report for AI professionals and enthusiasts. Your goal is to identify and analyze the most significant AI-related developments from the past 24 hours ({yesterday} to {current_date}).
-
-## Research Scope
-
-### Time Range
-- Focus STRICTLY on events, news, and discussions from {yesterday} to today ({current_date})
-- Verify publication dates to ensure freshness
-
-### Coverage Areas (Equal Priority)
-1. **Major Product Launches & Announcements**
-   - OpenAI, Google (DeepMind), Anthropic, Meta, NVIDIA, Microsoft
-   - Official blog posts, product releases, model updates
-
-2. **Academic & Technical Breakthroughs**
-   - ArXiv papers with significant impact
-   - HuggingFace trending models and papers
-
-3. **Open Source & Developer Tools**
-   - GitHub trending repositories (AI/ML category)
-   - Developer tools, libraries, frameworks
-
-4. **Industry & Business Developments**
-   - Funding announcements, acquisitions, partnerships
-   - Market analysis and industry trends
-
-5. **Community Discussions & Sentiment**
-   - Hot topics on Reddit (r/LocalLlama, r/MachineLearning)
-   - Hacker News discussions
-
-## Output Requirements
-
-### Language
-- Write the entire report in **Simplified Chinese (简体中文)**
-
-### Structure
-The report must follow this EXACT format:
-
----START_METADATA---
-{{
-  "title": "今日最震撼的头条标题（不超过30字，必须基于真实事件）",
-  "summary": "60-100字的精准摘要，包含3-4个核心要点，用分号分隔",
-  "tags": ["核心技术标签1", "核心技术标签2", "行业标签"],
-  "importance": 8
-}}
----END_METADATA---
-
----START_CONTENT---
-# 💡 首席洞察 (Chief Insight)
-
-（用150-200字综合分析今日AI行业的整体局势。必须基于实际发生的事件，指出趋势、关联性和潜在影响。避免空泛评论。）
-
-## 🔥 核心情报
-
-### 1. [具体且吸引人的标题]
-**来源**: [媒体/机构名称](完整URL) | 发布时间: YYYY-MM-DD
-
-- **深度拆解**: （80-120字，解释核心技术、产品功能、或事件背景。避免复述新闻，要提供洞察。）
-
-- **为何重要**: （50-80字，分析短期和长期影响。）
-
-- **社区声音**: （40-60字，Reddit、Hacker News、Twitter上的关键讨论点。）
-
-### 2. [另一条重要情报的标题]
-...
-
-（继续添加，确保总共有 4-6 条独立的核心情报）
-
-## 🛠️ 极客推荐 (GitHub/Tools)
-
-- **[项目名称](GitHub URL)**: （50-80字介绍核心功能和为何值得关注）
-
-（至少2个，最多4个高质量开源项目）
-
-## 🔗 原始情报来源
-
-- [来源标题1 - 机构名称](完整URL)
-...
-
-（列出至少10个主要参考来源）
-
----END_CONTENT---
-
-### Quality Standards
-1. **Accuracy**: Every fact must be verifiable with a valid URL
-2. **Freshness**: All events must be from the past 24 hours
-3. **Depth**: Don't just summarize headlines - provide analysis and context
-4. **Completeness**: Must have 4-6 core intelligence items covering different aspects
-
-## Your Mission
-Act as their personal AI intelligence officer. Spend the necessary time to thoroughly research, verify, and synthesize the most important AI developments of the day. Quality over speed.
-    """
-    
-    try:
-        start_time = time.time()
-        
-        # 创建后台研究任务
-        interaction = client.interactions.create(
-            input=research_task,
-            agent='deep-research-pro-preview-12-2025',
-            background=True
-        )
-        
-        print(f"✅ 研究任务已启动: {interaction.id}")
-        print("📊 任务状态监控中...")
-        
-        # 轮询检查任务状态
-        poll_count = 0
-        while True:
-            poll_count += 1
-            interaction = client.interactions.get(interaction.id)
-            
-            status = interaction.status
-            
-            if status == "completed":
-                elapsed = time.time() - start_time
-                print(f"✅ 研究完成！耗时: {elapsed/60:.1f} 分钟")
-                
-                if interaction.outputs and len(interaction.outputs) > 0:
-                    result = interaction.outputs[-1].text
-                    print(f"📝 报告长度: {len(result)} 字符")
-                    return result
-                else:
-                    raise Exception("研究完成但无输出内容")
-                    
-            elif status == "failed":
-                error_msg = getattr(interaction, 'error', '未知错误')
-                raise Exception(f"研究任务失败: {error_msg}")
-                
-            else:
-                elapsed = time.time() - start_time
-                print(f"⏳ [{poll_count}] 状态: {status} | 已耗时: {elapsed/60:.1f} 分钟")
-                time.sleep(30)
-                
-                if elapsed > 3600:
-                    raise Exception("任务超时（超过60分钟）")
-                    
-    except Exception as e:
-        print(f"❌ Deep Research 执行失败: {e}")
-        raise
-
-
-def run_gemini3_research_fallback():
-    """
-    降级方案：使用原有的 generate_content 方式
-    当 Deep Research 不可用或失败时使用
-    """
-    print("🔄 使用降级方案: Gemini generate_content")
-    
-    current_date = datetime.now(TZ_CN).strftime('%Y-%m-%d')
-    yesterday = (datetime.now(TZ_CN) - timedelta(days=1)).strftime('%Y-%m-%d')
-    
-    mode_instruction = "重点关注：OpenAI, Google, Anthropic, 英伟达, Meta 等巨头的最新发布和新闻。以及 ArXiv 上的突破性论文。"
+    mode_instruction = "重点关注：OpenAI, Google, Anthropic,英伟达,Meta 等巨头的最新发布和新闻。以及 ArXiv 上的突破性论文。"
 
     prompt = f"""
     # 角色定义
@@ -322,8 +162,8 @@ def run_gemini3_research_fallback():
     {mode_instruction}
     
     # 你的目标
-    为订阅者提供一份**"高信噪比、多维度"**的情报。
-    **不要**只列出 1-2 条新闻，请确保报告包含 **4-6 个** 独立且有深度的情报点。优先级：真实性 > 新鲜度 > 完整性
+    为订阅者提供一份**“高信噪比、多维度”**的情报。
+    **不要**只列出 1-2 条新闻，请确保报告包含 **3-5 个** 独立且有深度的情报点。优先级：真实性 > 新鲜度 > 完整性
     如果官方新闻很少，请挖掘社区(Reddit/HN/Twitter)的热门议题。
 
     # 深度研究任务 (必须覆盖以下维度)
@@ -353,10 +193,10 @@ def run_gemini3_research_fallback():
     # 💡 首席洞察 (Chief Insight)
     (用一段话合成今日的整体局势。必须基于真实发生的事件，避免空泛评论)
     
-    ## 🔥 核心情报 (4-6条)
+    ##  核心情报 (4-6条)
     
     ### 1. [情报标题]
-    **来源**: [媒体/社区名称](URL) | 发布时间
+    **来源**: [媒体/社区名称]
     
     - **深度拆解**: (50-100字，核心技术或事件脉络)
     
@@ -370,8 +210,9 @@ def run_gemini3_research_fallback():
     ### 3. [情报标题]
     ...
     
-    ## 🛠️ 极客推荐 (GitHub/Tools)
+    ## ️ 极客推荐 (GitHub/Tools)
     - **[项目名](URL)**: (一句话介绍核心功能 + 为什么值得关注（如：Star 数增长、解决的痛点等）)
+    - **[项目名](URL)**: ...
     
     ## 🔗 原始情报来源
     - [标题](URL)
@@ -379,10 +220,11 @@ def run_gemini3_research_fallback():
     """
 
     response = client.models.generate_content(
-        model='gemini-2.0-flash-exp',
+        model='gemini-3-pro-preview', 
         contents=prompt,
         config=types.GenerateContentConfig(
             tools=[types.Tool(google_search=types.GoogleSearch())],
+            thinking_config=types.ThinkingConfig(include_thoughts=True)
         )
     )
     return response.text
@@ -627,38 +469,21 @@ if __name__ == "__main__":
         print("❌ 错误: GEMINI_API_KEY 未设置")
         exit(1)
 
-    print("="*70)
-    print("🤖 AI Daily News Brief - Deep Research Edition")
-    print("="*70)
-
-    # 1. 运行 Deep Research（带降级机制）
-    try:
-        raw_report = run_deep_research()
-        print("\n✅ Deep Research 执行成功")
-    except Exception as e:
-        print(f"\n⚠️ Deep Research 失败，使用降级方案: {e}")
-        try:
-            raw_report = run_gemini3_research_fallback()
-            print("\n✅ 降级方案执行成功")
-        except Exception as e2:
-            print(f"\n❌ 降级方案也失败了: {e2}")
-            exit(1)
+    # 1. 运行 AI 研究
+    raw_report = run_gemini3_research()
     
     # 2. 解析内容
     meta, body = parse_gemini_response(raw_report)
     if not meta:
         meta = {"title": f"AI 深度简报 - {datetime.now(TZ_CN).strftime('%Y-%m-%d')}", "summary": "今日情报已送达", "tags": ["AI"]}
 
-    print(f"\n📋 报告标题: {meta.get('title')}")
-    print(f"📊 报告长度: {len(body)} 字符")
-
     # 3. 存储当天详情页 (.md 文件)
     save_to_markdown_file(meta, body) 
 
-    # 4. 更新"索引目录" (让 Archives 页面出现新链接)
+    # 4. 更新“索引目录” (让 Archives 页面出现新链接)
     update_archive_index("docs/archives") 
 
-    # 5. 更新"网站首页" (让首页展示今天的预览)
+    # 5. 更新“网站首页” (让首页展示今天的预览)
     update_homepage(meta, body)
 
     # 6. 同步 Notion (可选备份)
@@ -668,9 +493,5 @@ if __name__ == "__main__":
     # 7. 发布 GitHub Issue (作为邮件订阅渠道)
     publish_to_github_issue(meta, body)
 
-    # 8. SMTP 邮件推送
+    # 8. SMTP 邮件推送 (新增)
     send_email_newsletter(meta, body)
-
-    print("\n" + "="*70)
-    print("🎉 所有任务完成！")
-    print("="*70)
