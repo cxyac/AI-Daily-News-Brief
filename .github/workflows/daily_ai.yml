@@ -2,8 +2,12 @@ name: Daily AI Researcher & Publisher
 
 on:
   schedule:
+    # 主执行时间：北京时间早上 8:00 (UTC 00:00)
     - cron: '0 0 * * *'
-  workflow_dispatch:
+    # 备份执行时间：北京时间早上 8:30 (UTC 00:30)
+    # 如果主时间因延迟未执行，30分钟后会再次尝试
+    - cron: '30 0 * * *'
+  workflow_dispatch:  # 保留手动触发
 
 permissions:
   contents: write # 必须赋予写权限，否则无法提交新文件
@@ -45,10 +49,18 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'runner@users.noreply.github.com'
+          
+          # 检查今天的文件是否已经存在（避免重复执行）
+          TODAY=$(date -u +%Y-%m-%d)
+          if git log --since="today 00:00" --oneline | grep -q "Auto-add daily report"; then
+            echo "✅ 今天的报告已经生成并提交，跳过重复执行"
+            exit 0
+          fi
+          
           git add docs/archives/*.md docs/index.md
           # 如果有更动才提交
           if ! git diff --quiet || ! git diff --staged --quiet; then
-            git commit -m "Auto-add daily report (Deep Research)"
+            git commit -m "Auto-add daily report (Deep Research) - $TODAY"
             # 拉取远程更新并 rebase（处理可能的冲突）
             git pull --rebase origin main || true
             # 推送到远程
