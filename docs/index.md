@@ -1,24 +1,24 @@
 # 🤖 AI 每日深度研究简报
 
-> **最新动态 (2025-12-28)**: 今日情报已送达
+> **最新动态 (2025-12-29)**: 今日情报已送达
 
-## 🌟 今日头条: AI 深度简报 - 2025-12-28
+## 🌟 今日头条: AI 深度简报 - 2025-12-29
 
 # 💡 首席洞察 (Chief Insight)
 
-今日AI行业呈现出“硬核整合”与“软性落地”的双重博弈。Nvidia对Groq资产的200亿美元收购不仅是其史上最大手笔，更标志着AI推理芯片市场的终局之战已提前打响，硬件护城河被进一步加深。与此同时，软件应用端正经历残酷的“现实检验”：Waymo引入Gemini显示出多模态模型在物理世界的真实价值，而斯坦福与哈佛的联合研究则冷静地指出了当前Agentic AI在Demo与现实之间的巨大鸿沟——缺乏自适应能力。此外，OpenAI的高层招聘与DeepMind创始人的“远程办公消亡论”，共同折射出行业对AI长期安全与社会冲击的深度焦虑。
+2025年末的AI行业正处于“技术加速”与“物理/社会制约”的剧烈摩擦期。今日的情报呈现出鲜明的两极分化：一方面，**技术落地在加速**，MiniMax M2.1的开源标志着Agent模型向“数字员工”级别的实用性迈进，而英国NHS大规模部署AI预测急诊需求则证明了AI在关键公共服务中的实效。另一方面，**反作用力正在集结**，从伯尼·桑德斯呼吁暂停数据中心建设以应对能源和寡头垄断问题，到田纳西州激进地提案将“AI情感伴侣”定为重罪，监管和伦理的围墙正在从虚拟世界延伸到物理基础设施。这种张力表明，2026年的主旋律将不再仅仅是模型参数的竞赛，而是AI如何在能源红线、法律边界和主权诉求（如Adani的声明）的夹缝中寻求生存与扩张。
 
 ## 🔥 核心情报
 
-### 1. Nvidia 200亿美元收购Groq核心资产，吸纳顶尖人才
-**来源**: [CNBC/TechBuzz](https://www.techbuzz.ai/articles/nvidia-snaps-up-groq-in-record-20b-ai-chip-acquisition) | 发布时间: 2025-12-27
+### 1. MiniMax M2.1 开源：主打“数字员工”的高效MoE模型
+**来源**: [MiniMax Blog](https://www.minimax.io/news/minimax-m21) | [HuggingFace](https://huggingface.co/MiniMaxAI/MiniMax-M2.1) | 发布时间: 2025-12-28
 
-- **深度拆解**: Nvidia已达成协议，以约200亿美元现金收购AI芯片初创公司Groq的推理技术资产。交易核心不仅是IP，更是人才——Groq创始人Jonathan Ross（前谷歌TPU核心成员）及总裁Sunny Madra将率领...
+- **深度拆解**: 中国AI独角兽MiniMax正式向开源社区交付了**M2.1**模型权重。该模型采用混合...
 
 ---
 
 ### 🔗 快速链接
-- [📅 查看完整报告](archives/2025-12-28.md)
+- [📅 查看完整报告](archives/2025-12-29.md)
 - [📚 往期内容归档](archives/index.md)
 
 ### 🛠️ 订阅说明
@@ -28,4 +28,4 @@
 <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
 ---
-*上次更新时间：2025-12-28 23:45:47*
+*上次更新时间：2025-12-29 08:53:46*
