@@ -1,24 +1,24 @@
 # 🤖 AI 每日深度研究简报
 
-> **最新动态 (2025-12-29)**: 今日情报已送达
+> **最新动态 (2025-12-30)**: 今日情报已送达
 
-## 🌟 今日头条: AI 深度简报 - 2025-12-29
+## 🌟 今日头条: AI 深度简报 - 2025-12-30
 
 # 💡 首席洞察 (Chief Insight)
 
-2025年末的AI行业正处于“技术加速”与“物理/社会制约”的剧烈摩擦期。今日的情报呈现出鲜明的两极分化：一方面，**技术落地在加速**，MiniMax M2.1的开源标志着Agent模型向“数字员工”级别的实用性迈进，而英国NHS大规模部署AI预测急诊需求则证明了AI在关键公共服务中的实效。另一方面，**反作用力正在集结**，从伯尼·桑德斯呼吁暂停数据中心建设以应对能源和寡头垄断问题，到田纳西州激进地提案将“AI情感伴侣”定为重罪，监管和伦理的围墙正在从虚拟世界延伸到物理基础设施。这种张力表明，2026年的主旋律将不再仅仅是模型参数的竞赛，而是AI如何在能源红线、法律边界和主权诉求（如Adani的声明）的夹缝中寻求生存与扩张。
+2025年即将结束之际，AI行业正经历从“对话式AI”向“代理式AI（Agentic AI）”的决定性转变。**Meta今日宣布收购通用AI代理公司Manus**，这一举动不仅是其成立以来第三大收购案，更标志着科技巨头对“数字员工”和自动化执行能力的争夺进入白热化阶段。与此同时，**OpenAI高调招聘“准备度主管”**，并直言工作“极度高压”，反映出在模型能力飞速增长与社会安全（特别是心理健康和网络安全）之间的张力已达到临界点。技术层面，学术界对**上下文学习（ICL）机制的解构**取得了突破，为更可控的AI系统提供了理论支撑。整体来看，2026年将是AI从“生成内容”转向“解决任务”并深度嵌入硬件终端的一年。
 
 ## 🔥 核心情报
 
-### 1. MiniMax M2.1 开源：主打“数字员工”的高效MoE模型
-**来源**: [MiniMax Blog](https://www.minimax.io/news/minimax-m21) | [HuggingFace](https://huggingface.co/MiniMaxAI/MiniMax-M2.1) | 发布时间: 2025-12-28
+### 1. Meta收购通用AI代理公司Manus，加速布局Agent生态
+**来源**: [Investing.com](https://www.investing.com/news/stock-market-news/meta-acquires-manus-to-expand-ai-agent-capabilities-4186109) | 发布时间: 2025-12-30
 
-- **深度拆解**: 中国AI独角兽MiniMax正式向开源社区交付了**M2.1**模型权重。该模型采用混合...
+- **深度拆解**: Meta宣布收购总部位于新加坡的AI初创公司Manus。Manus以开发通用型AI代理（Ge...
 
 ---
 
 ### 🔗 快速链接
-- [📅 查看完整报告](archives/2025-12-29.md)
+- [📅 查看完整报告](archives/2025-12-30.md)
 - [📚 往期内容归档](archives/index.md)
 
 ### 🛠️ 订阅说明
@@ -28,4 +28,4 @@
 <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
 ---
-*上次更新时间：2025-12-29 08:53:46*
+*上次更新时间：2025-12-30 09:25:20*
